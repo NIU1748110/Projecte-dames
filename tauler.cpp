@@ -12,8 +12,9 @@ void Tauler::inicialitza(const string& nomFitxer)
 
     char tipus;
     string posicio;
-    while (fitxer >> tipus >> posicio) 
+    while (!fitxer.eof()) 
     {
+        fitxer >> tipus >> posicio;
         Posicio pos(posicio);
         if (pos.getFila() >= 0 && pos.getFila() < N_FILES &&
             pos.getColumna() >= 0 && pos.getColumna() < N_COLUMNES) 
