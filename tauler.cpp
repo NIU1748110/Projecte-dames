@@ -67,16 +67,12 @@ string Tauler::toString() const
                 resultat += "_";
             else 
             {
-                if (m_tauler[i][j].getTipus() == TIPUS_NORMAL) 
-                    resultat += (m_tauler[i][j].getColor() == COLOR_BLANC) ? "O" : "X";
-                else 
-                    resultat += (m_tauler[i][j].getColor() == COLOR_BLANC) ? "D" : "R";
+      
             }
 
             resultat += " ";
         }
         resultat += "\n";
     }
-    resultat += "  a b c d e f g h\n";
     return resultat;
 }
