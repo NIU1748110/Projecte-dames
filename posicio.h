@@ -21,4 +21,6 @@ private:
 	int m_fila;
 };
 
+ostream& operator<<(std::ostream& os, const Posicio& posicio);
+
 #endif
