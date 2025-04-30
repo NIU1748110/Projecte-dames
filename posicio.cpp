@@ -37,3 +37,9 @@ bool Posicio::operator==(const Posicio& posicio) const
 
 	return iguals;
 }
+
+ostream& operator<<(std::ostream& os, const Posicio& posicio) 
+{
+	os << char('a' + posicio.getColumna()) << char('1' + posicio.getFila());
+	return os;
+}
