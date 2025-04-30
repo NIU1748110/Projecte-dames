@@ -44,7 +44,7 @@ void Tauler::inicialitza(const string& nomFitxer)
                 color = COLOR_NEGRE;
             }
 
-            m_tauler[pos.getFila()][pos.getColumna()] = Fitxa(t, color, pos);
+            m_tauler[pos.getFila()][pos.getColumna()] = Fitxa(t, color);
         }
     }
     fitxer.close();
@@ -57,22 +57,43 @@ void Tauler::actualitzaMovimentsValids()
 
 string Tauler::toString() const 
 {
-    string resultat;
-    for (int i = N_FILES - 1; i >= 0; i--) 
-    {
+    string resultat = "";
+
+    for (int i = N_FILES - 1; i >= 0; --i) {
+        resultat += char('0' + (i + 1));
         resultat += ": ";
-        for (int j = 0; j < N_COLUMNES; j++) 
+
+        for (int j = 0; j < N_COLUMNES; ++j) 
         {
-            if (m_tauler[i][j].getTipus() == TIPUS_EMPTY) 
-                resultat += "_";
-            else 
+            const Fitxa& fitxa = m_tauler[i][j];
+            char c = '_';
+
+            if (fitxa.getTipus() == TIPUS_NORMAL) {
+                if (fitxa.getColor() == COLOR_BLANC) 
+                    c = 'O';
+                else
+                    c = 'X';
+            }
+            else if (fitxa.getTipus() == TIPUS_DAMA) 
             {
-      
+                if (fitxa.getColor() == COLOR_BLANC) 
+                    c = 'D';
+                else
+                    c = 'R';
             }
 
-            resultat += " ";
+            resultat += c;
+            resultat += ' ';
         }
-        resultat += "\n";
+
+        resultat += '\n';
     }
+
+    resultat += "   ";
+    for (int j = 0; j < N_COLUMNES; ++j) {
+        resultat += char('a' + j);
+        resultat += ' ';
+    }
+
     return resultat;
 }
