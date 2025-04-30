@@ -7,19 +7,14 @@
 #include "posicio.h"
 #include "moviment.h"
 
-const int N_FILES = 8;
-const int N_COLUMNES = 8;
-
-using namespace std;
-
 class Tauler
 {
 public:
 	void inicialitza(const string& nomFitxer);
 	void actualitzaMovimentsValids();
-	void getPosicionsPossibles(cont Posicio& origen,
+	void getPosicionsPossibles(const Posicio& origen,
 		int& nPosicions, Posicio posicionsPossibles[]);
-	bool mouFitxa(const Posicio& origen, const Posicio& desti);
+	bool mouFitxa(const Posicio& origen, const Posicio& desti) { return true; }
 	string toString() const;
 
 private:
