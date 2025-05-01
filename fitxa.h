@@ -1,7 +1,7 @@
 #ifndef FITXA_H
 #define FITXA_H
-#include "posicio.h"
-#include "moviment.h"
+#include "posicio.hpp"
+#include "moviment.hpp"
 
 using namespace std;
 
@@ -39,6 +39,7 @@ public:
     void resetMoviments() { m_numMoviments = 0; }
     int getNumMoviments() const { return m_numMoviments; }
     Moviment getMoviment(int i) const { return m_movimentsValids[i]; }
+    bool teCaptura() const;
 
 private:
     TipusFitxa m_tipus;
