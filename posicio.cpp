@@ -1,13 +1,13 @@
-#include "posicio.h"
+#include "posicio.hpp"
 
 Posicio::Posicio(const string& posicio)
 {
-	if ((posicio[0] != '\0') && (posicio[1] != '\0'))
+	if (posicio.length() >= 2) 
 	{
-		m_fila = posicio[0] - 'a';
-		m_columna = posicio[1] - '1';
+		m_columna = posicio[0] - 'a';
+		m_fila = 7 - (posicio[1] - '1');
 	}
-	else
+	else 
 	{
 		m_fila = 0;
 		m_columna = 0;
@@ -17,7 +17,7 @@ Posicio::Posicio(const string& posicio)
 string Posicio::toString() const
 {
 	char columna = 'a' + m_columna;
-	char fila = '1' + m_fila;
+	char fila = '1' + (7 - m_fila);
 
 	string resultat;
 	resultat += columna;
