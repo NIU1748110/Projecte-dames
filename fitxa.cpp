@@ -24,7 +24,8 @@ bool Fitxa::teCaptura() const
             Posicio desti = m.getPas(m.getNumPassos() - 1);
             int df = abs(origen.getFila() - desti.getFila());
             int dc = abs(origen.getColumna() - desti.getColumna());
-            if (df > 1 && dc > 1) return true;
+            if (df > 1 && dc > 1) 
+                return true;
         }
     }
     return false;
