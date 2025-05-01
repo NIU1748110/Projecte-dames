@@ -1,6 +1,6 @@
 #ifndef MOVIMENT_H
 #define MOVIMENT_H
-#include "posicio.h"
+#include "posicio.hpp"
 
 const int MAX_PASSOS = 8;
 
