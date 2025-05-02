@@ -23,6 +23,7 @@ public:
 	bool esCasellaBuida(int fila, int columna) const;
 	bool esEnemic(const Fitxa& fitxa, int fila, int columna) const;
 	void afegirMoviment(Fitxa& fitxa, int filaDesti, int columnaDesti);
+	void verificarCapturesMultiples(Fitxa& fitxa, int fila, int columna, Moviment& movimentActual);
 
 private:
 	Fitxa m_tauler[N_FILES][N_COLUMNES];
