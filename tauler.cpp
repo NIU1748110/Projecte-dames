@@ -137,13 +137,13 @@ void Tauler::movimentsFitxesNormals(Fitxa& fitxa, int fila, int columna)
 
     for (int dj = -1; dj <= 1; dj += 2) 
     {
-        int filaIntermedia = fila + direccio;
-        int colIntermedia = columna + dj;
+        int filaIntermitja = fila + direccio;
+        int colIntermitja = columna + dj;
         int filaDesti = fila + 2 * direccio;
         int colDesti = columna + 2 * dj;
 
-        if (esMovimentValid(filaDesti, colDesti) && esMovimentValid(filaIntermedia, colIntermedia) && !esCasellaBuida(filaIntermedia, colIntermedia) &&
-            esEnemic(fitxa, filaIntermedia, colIntermedia) && esCasellaBuida(filaDesti, colDesti)) 
+        if (esMovimentValid(filaDesti, colDesti) && esMovimentValid(filaIntermitja, colIntermitja) && !esCasellaBuida(filaIntermitja, colIntermitja) &&
+            esEnemic(fitxa, filaIntermitja, colIntermitja) && esCasellaBuida(filaDesti, colDesti)) 
         {
             Moviment m;
             m.afegeixPas(posicioDesDeIndexos(filaDesti, colDesti));
@@ -164,13 +164,13 @@ void Tauler::verificarCapturesMultiples(Fitxa& fitxa, int fila, int columna, Mov
     
     for (int dj = -1; dj <= 1; dj += 2) 
     {
-        int filaIntermedia = fila + direccio;
-        int colIntermedia = columna + dj;
+        int filaIntermitja = fila + direccio;
+        int colIntermitja = columna + dj;
         int filaDesti = fila + 2 * direccio;
         int colDesti = columna + 2 * dj;
 
-        if (esMovimentValid(filaDesti, colDesti) && esMovimentValid(filaIntermedia, colIntermedia) && !esCasellaBuida(filaIntermedia, colIntermedia) &&
-            esEnemic(fitxa, filaIntermedia, colIntermedia) && esCasellaBuida(filaDesti, colDesti)) {
+        if (esMovimentValid(filaDesti, colDesti) && esMovimentValid(filaIntermitja, colIntermitja) && !esCasellaBuida(filaIntermitja, colIntermitja) &&
+            esEnemic(fitxa, filaIntermitja, colIntermitja) && esCasellaBuida(filaDesti, colDesti)) {
 
             Moviment nouMoviment = movimentActual;
             nouMoviment.afegeixPas(posicioDesDeIndexos(filaDesti, colDesti));
