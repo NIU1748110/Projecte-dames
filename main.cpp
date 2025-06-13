@@ -57,12 +57,11 @@ int main(int argc, const char* argv[])
         int mousePosY = Mouse_getY();
         partidaFinal = joc.actualitza(mousePosX, mousePosY, mouseStatus);
 
-        pantalla.update();
-
-        if (partidaFinal)
-            joc.finalitza();
+        pantalla.update();        
 
     } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+
+    joc.finalitza();
 
     mode = MODE_JOC_REPLAY;
 
@@ -87,4 +86,5 @@ int main(int argc, const char* argv[])
     SDL_Quit();
     return 0;
 }
+
 
