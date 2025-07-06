@@ -57,34 +57,28 @@ int main(int argc, const char* argv[])
         int mousePosY = Mouse_getY();
         partidaFinal = joc.actualitza(mousePosX, mousePosY, mouseStatus);
 
-        pantalla.update();        
+        pantalla.update();
 
-    } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+    } while ((!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE)) && (!partidaFinal));
 
     joc.finalitza();
 
-    mode = MODE_JOC_REPLAY;
-
-    joc.inicialitza(mode, fitxerTauler, nomFitxerMoviments);
-
-    do
+    if (partidaFinal)
     {
-        pantalla.processEvents();
+        do
+        {
+            pantalla.processEvents();
 
-        bool mouseStatus = Mouse_getBtnLeft();
-        int mousePosX = Mouse_getX();
-        int mousePosY = Mouse_getY();
-        partidaFinal = joc.actualitza(mousePosX, mousePosY, mouseStatus);
+            bool mouseStatus = Mouse_getBtnLeft();
+            int mousePosX = Mouse_getX();
+            int mousePosY = Mouse_getY();
+            partidaFinal = joc.actualitza(mousePosX, mousePosY, mouseStatus);
 
-        pantalla.update();
-
-        if (partidaFinal)
-            joc.finalitza();
-
-    } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+            pantalla.update();
+        } while (!Keyboard_GetKeyTrg(KEYBOARD_ESCAPE));
+    }
 
     SDL_Quit();
     return 0;
 }
-
 
