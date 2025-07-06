@@ -112,7 +112,16 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
            int filaTauler = N_FILES - 1 - filaPantalla;
 
            Posicio clicada(filaPantalla, columna);
-           Fitxa fitxaClicada = m_tauler.getFitxa(clicada.getFila(), clicada.getColumna());
+           Fitxa fitxaClicada = m_tauler.getFitxa(filaTauler, clicada.getColumna());
+
+           if ((columna != m_fitxaSeleccionada.getColumna()) || (filaTauler != m_fitxaSeleccionada.getFila()))
+           {
+               if (fitxaClicada.getTipus() != TIPUS_EMPTY && fitxaClicada.getColor() == m_jugadorActual)
+               {
+                   m_fitxaSeleccionadaValida = false;
+               }
+           }
+           
 
            if (m_fitxaSeleccionadaValida)
            {
@@ -132,7 +141,11 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
                    {
                        m_tauler.mouFitxa(m_fitxaSeleccionada, clicada);
 
-                       m_cua.nouMoviment(m_fitxaSeleccionada, clicada);
+                       int filaOrigen = 7 - m_fitxaSeleccionada.getFila();
+
+                       Posicio posicioOriginal(filaOrigen, m_fitxaSeleccionada.getColumna());
+
+                       m_cua.nouMoviment(posicioOriginal, clicada);
 
                        if (m_jugadorActual == COLOR_BLANC) 
                        {
@@ -170,16 +183,16 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
            Posicio desti;
 
            m_cua.getOrigenDesti(origen, desti);
+
+           int filaOrigen = 7 - origen.getFila();
+           origen.setFila(filaOrigen);
+
            m_tauler.mouFitxa(origen, desti);
 
            if (m_jugadorActual == COLOR_BLANC)
-           {
                m_jugadorActual = COLOR_NEGRE;
-           }
            else 
-           {
                m_jugadorActual = COLOR_BLANC;
-           }
 
            m_tauler.actualitzaMovimentsValids();
            m_repeticio = false;
@@ -194,6 +207,9 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
 
        string mBuida = "No hi ha mes moviments per reprodiur";
        GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, mBuida);
+       string sortirPartida = "Prem Esc per sortir de la partida";
+       GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, (posTextY + 30), 0.8, sortirPartida);
+
    }
 
 
@@ -253,7 +269,27 @@ bool Joc::actualitza(int mousePosX, int mousePosY, bool mouseStatus)
     
 
     if (!quedenBlanques || !quedenNegres)
+    {
+        int posTextX = POS_X_TAULER;
+        int posTextY = POS_Y_TAULER + (ALCADA_CASELLA * NUM_FILES_TAULER) + 200;
+        if(m_mode == MODE_JOC_NORMAL)
+        {
+            if (quedenBlanques)
+            {
+                string guaynador = "les Blanques guanyen";
+                GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, guaynador);
+            }
+            if (quedenNegres)
+            {
+                string guaynador = "les Negres guanyen";
+                GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, posTextY, 0.8, guaynador);
+            }
+            string sortirPartida = "Prem Esc per sortir de la partida";
+            GraphicManager::getInstance()->drawFont(FONT_WHITE_30, posTextX, (posTextY + 30), 0.8, sortirPartida);
+
+        }
         return true;
+    }
     return false;
 }
 
@@ -281,7 +317,7 @@ void Joc::inicialitza(ModeJoc mode, const string& nomFitxerTauler, const string&
 
 void Joc::finalitza()
 {
-    string moviments = "moviments.txt";
+    string moviments = m_fitxerMoviments;
     if(m_mode == MODE_JOC_NORMAL)
     {
         m_cua.inicialitzaMoviments(moviments);
